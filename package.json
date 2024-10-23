@@ -10,8 +10,16 @@
   "categories": [
     "Other"
   ],
+  "homepage": "https://github.com/songxingling1/vscode-cj-note/blob/main/README.md",
   "publisher": "XinglinSong",
-  "repository": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/songxingling1/vscode-cj-note"
+  },
+  "bugs": {
+    "url": "https://github.com/songxingling1/vscode-cj-note/issues",
+    "email": "songxingling1@outlook.com"
+  },
   "activationEvents": [
     "onView:todolist"
   ],
