@@ -15,6 +15,9 @@ let configure:{label:string,kind?:vscode.QuickPickItemKind}[] = [
 export function activate(context: vscode.ExtensionContext) {
     let list:TODOTree = new TODOTree();
     list.init(context);
+    vscode.window.onDidChangeWindowState((e:vscode.WindowState) => {
+        list.init(context);
+    });
     if(context.globalState.get('status')) {
         stt = context.globalState.get('status') as {label:string,kind?:vscode.QuickPickItemKind}[];
     } else {

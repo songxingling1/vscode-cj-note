@@ -1,3 +1,4 @@
+'use strict';
 import * as vscode from 'vscode';
 import * as path from 'path';
 const Fuse = require('fuse.js');
@@ -17,9 +18,58 @@ class TODOTree implements vscode.TreeDataProvider<DataItem> {
     init(context: vscode.ExtensionContext):void {
         if(context.globalState.get('listdata')) {
             this.data = context.globalState.get('listdata') as DataItem[];
+            this.data.forEach(element => {
+                if(element.status === 'TODO') {
+                    element.iconPath = {
+                        light: path.join(__dirname,'..','image',`todo.svg`),
+                        dark: context.asAbsolutePath( path.join( "image", "todo_light.svg") )
+                    };
+                } else if(element.status === 'DONE') {
+                    element.iconPath = {
+                        light: path.join(__dirname,'..','image',`done.svg`),
+                        dark: path.join(__dirname,'..','image',`done_light.svg`)
+                    };
+                } else if(element.status === 'ABANDEN') {
+                    element.iconPath = {
+                        light: path.join(__dirname,'..','image',`abd.svg`),
+                        dark: path.join(__dirname,'..','image',`abd_light.svg`)
+                    };
+                } else {
+                    element.iconPath = {
+                        light: path.join(__dirname,'..','image',`doing.svg`),
+                        dark: path.join(__dirname,'..','image',`doing_light.svg`)
+                    };
+                }
+            });
+            context.globalState.update('listdata',this.data);
         }
         if(context.globalState.get('listresult')) {
             this.result = context.globalState.get('listresult') as DataItem[];
+            this.result.forEach(element => {
+                if(element.status === 'TODO') {
+                    element.iconPath = {
+                        light: path.join(__dirname,'..','image',`todo.svg`),
+                        dark: context.asAbsolutePath( path.join( "image", "todo_light.svg") )
+                    };
+                } else if(element.status === 'DONE') {
+                    element.iconPath = {
+                        light: path.join(__dirname,'..','image',`done.svg`),
+                        dark: path.join(__dirname,'..','image',`done_light.svg`)
+
+                    };
+                } else if(element.status === 'ABANDEN') {
+                    element.iconPath = {
+                        light: path.join(__dirname,'..','image',`abd.svg`),
+                        dark: path.join(__dirname,'..','image',`abd_light.svg`)
+                    };
+                } else {
+                    element.iconPath = {
+                        light: path.join(__dirname,'..','image',`doing.svg`),
+                        dark: path.join(__dirname,'..','image',`doing_light.svg`)
+                    };
+                }
+            });
+            context.globalState.update('listresult',this.result);
         }
     }
     delTODO(node:DataItem):void {
@@ -78,9 +128,11 @@ class TODOTree implements vscode.TreeDataProvider<DataItem> {
 class DataItem extends vscode.TreeItem {
     public title:string;
     public cnt:number;
+    public status:string;
     constructor(label:string,status:string,id:number) {
         super(`${status} - ${label}`,vscode.TreeItemCollapsibleState.None);
         this.cnt = id;
+        this.status = status;
         this.iconPath = {
             light: path.join(__dirname,'..','image',`todo.svg`),
             dark: path.join(__dirname,'..','image',`todo_light.svg`)
