@@ -2,7 +2,7 @@
   "name": "cj-note",
   "displayName": "CJ Note",
   "description": "CJ笔记",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "image/logo.png",
   "engines": {
     "vscode": "^1.94.0"

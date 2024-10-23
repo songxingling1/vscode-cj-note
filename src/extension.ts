@@ -125,6 +125,7 @@ export function activate(context: vscode.ExtensionContext) {
                     };
                 }
                 node.label = `${value.label} - ${node.title}`;
+                node.status = value.label;
                 list.refresh();
                 list.save(context);
             }
