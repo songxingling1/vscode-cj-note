@@ -1,0 +1,136 @@
+{
+  "name": "cj-note",
+  "displayName": "CJ Note",
+  "description": "CJ笔记",
+  "version": "0.0.1",
+  "icon": "image/logo.png",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "publisher": "XinglinSong",
+  "repository": {},
+  "activationEvents": [
+    "onView:todolist"
+  ],
+  "main": "./webpack-out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cj-note.addNewTODO",
+        "title": "新建待办事项",
+        "icon": {
+          "light": "image/add.svg",
+          "dark": "image/add_light.svg"
+        }
+      },
+      {
+        "command": "cj-note.deleteTODO",
+        "title": "删除待办事项",
+        "icon": {
+          "light": "image/del.svg",
+          "dark": "image/del_light.svg"
+        }
+      },
+      {
+        "command": "cj-note.TODOfilter",
+        "title": "筛选待办事项",
+        "icon": {
+          "light": "image/filter.svg",
+          "dark": "image/filter_light.svg"
+        }
+      },
+      {
+        "command": "cj-note.clearFilter",
+        "title": "清除筛选条件",
+        "icon": {
+          "light": "image/clearFilter.svg",
+          "dark": "image/clearFilter_light.svg"
+        }
+      },
+      {
+        "command": "cj-note.changeTODO",
+        "title": "改变待办事项状态",
+        "icon": {
+          "light": "image/change.svg",
+          "dark": "image/change_light.svg"
+        }
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "cj-note.addNewTODO",
+          "group": "navigation",
+          "when": "view == todolist"
+        },
+        {
+          "command": "cj-note.TODOfilter",
+          "group": "navigation",
+          "when": "view == todolist && !cj-note.filtered"
+        },
+        {
+          "command": "cj-note.clearFilter",
+          "group": "navigation",
+          "when": "view == todolist && cj-note.filtered"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "cj-note.deleteTODO",
+          "group": "inline"
+        },
+        {
+          "command": "cj-note.changeTODO",
+          "group": "inline"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "todolist",
+          "title": "待办事项",
+          "icon": "image/repo.svg"
+        }
+      ]
+    },
+    "views": {
+      "todolist": [
+        {
+          "id": "todolist",
+          "name": "待办事项",
+          "type": "tree"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run release",
+    "compile": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "release": "webpack --mode production",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.9",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.94.0",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.13.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "fuse.js": "^7.0.0"
+  }
+}
